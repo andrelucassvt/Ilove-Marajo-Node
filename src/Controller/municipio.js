@@ -1,71 +1,87 @@
-const municipio = require("../model/municipio");
-const Status = require('http-status')
+const Municipios = require("../model/municipio");
+const Status = require('http-status');
 
-exports.buscarUm = (request,response,next)=>{
-    const id = request.params.id
+module.exports = {
+	index(req, res) {
+		return res.json({ Municipios: 'Marajó' });
+	},
 
-    municipio.findById(id).then(municipio=>{
-        if (municipio) {
-            response.send(municipio)
-        } else {
-            response.status(Status.NOT_FOUND).send();
-        }
-    }).catch(error=>next(error))
-}
+	async buscarTodos(req, res) {
+		try {
+			const municipios = await Municipios.findAll();
 
+			return res.json(municipios);
+		} catch (error) {
+			console.log(error);
+			console.log('Erro ao buscar os dados!!');
+		}
+	},
 
-exports.buscarTodos =(request,response,next)=>{
+	async buscarUm(req, res) {
+		const id = req.params.id;
 
-    municipio.findAll().then((municipio)=>{
-        if (municipio) {
-            response.send(municipio)
-        } else {
-            response.status(Status.NOT_FOUND).send()
-        }
-    }).catch(error=>next(error))
-}
+		try {
+			const municipio = await Municipios.findByPk(id);
 
-exports.criar = (request,response,next)=>{
-    const nome = request.body.nome
+			return res.json(municipio);
+		} catch (error) {
+			console.log(erro);
+			console.log('Erro ao busca o municipio');
+		}
+	},
 
-    municipio.create({
-        nome: nome
-    }).then(()=>{
-        response.status(Status.CREATE).send()
-    }).catch(error=>next(error))
-}
+	async criar(req, res) {
+		const nomeMunicipio = req.body;
 
+		try {
+			const postDados = await Municipios.create({
+				nome: nomeMunicipio.nome
+			});
 
-exports.atualizar = (request, response, next) => {
-    const id = request.params.id
+			//return res.send('Nome salvo!!')
+			return res.json(postDados);
+		} catch (error) {
+			console.log(error);
+			console.log('Erro ao salvar os dados!!');
+		}
+	},
+	
+	async atualizar(req, res) {
 
-    const nome = request.body.nome
+	},
+	/*atualizar(request, response, next)   {
+			const id = request.params.id;
+			const nome = request.body.nome;
+	
+			Spoiler.findById(id).then((municipio) => {
+				if (municipio) {
+					municipio.update({
+						nome:nome
+					}, { where: { id: id } }).then(() => {
+						response.send();
+					}).catch((error) => next(error));
+				} else {
+					response.status(Status.NOT_FOUND).send();
+				}
+			}).catch((error) => next(error));
+	},*/
 
-    Spoiler.findById(id).then((municipio) => {
-        if (municipio) {
-            municipio.update({
-                nome:nome
-            }, { where: { id: id } }).then(() => {
-                response.send()
-            }).catch((error) => next(error))
-        } else {
-            response.status(Status.NOT_FOUND).send()
-        }
-    }).catch((error) => next(error))
-}
+	async excluir(req, res) {
 
-exports.excluir = (request, response, next) => {
-    const id = request.params.id
+	}
+	/*excluir(request, response, next) {
+		const id = request.params.id;
 
-    municipio.findById(id).then((municipio) => {
-        if (municipio) {
-            municipio.destroy({
-                where: { id: id }
-            }).then(() => {
-                response.send()
-            }).catch((error) => next(error))
-        } else {
-            response.status(Status.NOT_FOUND).send()
-        }
-    }).catch((error) => next(error))
+		municipio.findById(id).then((municipio) => {
+				if (municipio) {
+					municipio.destroy({
+						where: { id: id }
+					}).then(() => {
+						response.send();
+					}).catch((error) => next(error));
+				} else {
+					response.status(Status.NOT_FOUND).send();
+				}
+		}).catch((error) => next(error));
+	}*/
 }
