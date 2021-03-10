@@ -4,7 +4,7 @@ module.exports = {
         host: "localhost",
         port: 3306,
         name: "municipios",
-        dialect: "mysql",
+        dialect: "sqlite3",
         user: "root",
         password: ""
       }

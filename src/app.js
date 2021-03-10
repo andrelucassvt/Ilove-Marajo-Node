@@ -9,7 +9,7 @@ const app = express();
 
 app.use(express.json());
 
-app.use('/api',municipiosRouts);
+app.use('/api', municipiosRouts);
 
 
 app.use((request,response,next)=>{

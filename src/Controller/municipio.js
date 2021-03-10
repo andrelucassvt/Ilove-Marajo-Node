@@ -1,10 +1,10 @@
 const municipio = require("../model/municipio");
 const Status = require('http-status')
 
-exports.buscarUm = (request,response,next)=>{
+exports.buscarUm = (request, response, next)=>{
     const id = request.params.id
 
-    municipio.findById(id).then(municipio=>{
+    municipio.findById(id).then(municipio => {
         if (municipio) {
             response.send(municipio)
         } else {
@@ -12,7 +12,6 @@ exports.buscarUm = (request,response,next)=>{
         }
     }).catch(error=>next(error))
 }
-
 
 exports.buscarTodos =(request,response,next)=>{
 
@@ -34,7 +33,6 @@ exports.criar = (request,response,next)=>{
         response.status(Status.CREATE).send()
     }).catch(error=>next(error))
 }
-
 
 exports.atualizar = (request, response, next) => {
     const id = request.params.id
@@ -65,7 +63,7 @@ exports.excluir = (request, response, next) => {
                 response.send()
             }).catch((error) => next(error))
         } else {
-            response.status(Status.NOT_FOUND).send()
+					response.status(Status.NOT_FOUND).send()
         }
     }).catch((error) => next(error))
 }
