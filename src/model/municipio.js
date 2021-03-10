@@ -1,19 +1,18 @@
 const Sequelize = require("sequelize");
-const sequelize = require("../database/database");
+const database = require("../config/config");
 
+const Municipios = database.define('municipios', {
+	id: {
+		allowNull: false,
+		autoIncrement: true,
+		primaryKey: true,
+		type: Sequelize.INTEGER,
+	},
 
-const Municipios = sequelize.define('municipios',{
-    id: {
-        allowNull: false,
-        autoIncrement: true,
-        primaryKey: true,
-        type: Sequelize.INTEGER,
-    },
-
-    nome:{
-        allowNull: false,
-        type: Sequelize.STRING(100),
-    }
+	nome:{
+		allowNull: false,
+		type: Sequelize.STRING(100),
+	}
 })
 
 
