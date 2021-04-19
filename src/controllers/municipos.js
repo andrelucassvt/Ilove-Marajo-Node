@@ -11,16 +11,6 @@ module.exports = {
     }
   },
 
-  async listAll(req, res, next) {
-    try {
-      const list = await knex.select().table('municipios');
-
-      return res.json(list);
-    } catch (error) {
-      next(error);
-    }
-  },
-
   async post(req, res, next) {
     try {
       const {
