@@ -5,22 +5,16 @@
   "main": "src/app.js",
   "scripts": {
     "start": "node src/index.js",
-    "dev": "nodemon src/index.js",
-    "migrate": "knex migrate:make",
-    "runmigrate": "knex migrate:latest",
-    "seed": "knex seed:make",
-    "runseed": "knex seed:run",
-    "seedspecific": "knex seed:run --specific"
+    "dev": "nodemon src/index.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "cors": "^2.8.5",
     "express": "^4.17.1",
     "http-status": "^1.5.0",
-    "knex": "^0.95.4",
     "mysql2": "^2.2.5",
     "nodemon": "^2.0.7",
+    "sequelize": "^6.5.0",
     "sqlite3": "^5.0.2"
   }
 }
