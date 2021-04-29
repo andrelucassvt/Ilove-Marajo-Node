@@ -13,14 +13,20 @@ module.exports = {
 
   async listandoUmaPraia(req, res, next) {
     try {
-      const { id } = req.params;
-      
-      const list = await knex
-        .table('praia')
-        .select('*')
-        .where({ id_praia: id });
-
-      return res.json(list);
+      const { nome_praia } = req.query;
+  
+      const query = knex.table('praia');
+  
+      if(query) {
+        query
+          .where({ nome_praia })
+          .join('municipios', 'municipios.nome_municipios', '=', 'praia.municipios')
+          .select('municipios.nome_municipios', 'praia.nome_praia', 'praia.foto', 'praia.avaliação');
+      }
+       
+      const result = await query;
+  
+      return res.json(result);
     } catch (error) {
       next(error);
     }
@@ -42,12 +48,12 @@ module.exports = {
       const result = await query;
 
       return res.json(result);
-
-      /**/
     } catch (error) {
       next(error);
     }
   },
+
+  
 
   async cadastraPraias(req, res, next) {
     try {
