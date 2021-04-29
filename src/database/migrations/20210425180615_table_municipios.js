@@ -2,7 +2,7 @@
 exports.up = function(knex) {
   return knex.schema.createTable('municipios', table => {
     table.increments('id_municipios').primary();
-    table.string('nome_municipios');
+    table.string('nome_municipios').notNullable();
   });
 };
 
