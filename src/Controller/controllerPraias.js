@@ -11,16 +11,49 @@ module.exports = {
     }
   },
 
-  async listaPraiasUnicoMunicipio(req, res, next) {
+  async listandoUmaPraia(req, res, next) {
     try {
-      const { id } = req.params;
-      const list = await knex.select('id_municipios', 'nome_praia').table('praia').where({ id_municipios: id });
-
-      return res.json(list);
+      const { nome_praia } = req.query;
+  
+      const query = knex.table('praia');
+  
+      if(query) {
+        query
+          .where({ nome_praia })
+          .join('municipios', 'municipios.nome_municipios', '=', 'praia.municipios')
+          .select('municipios.nome_municipios', 'praia.nome_praia', 'praia.foto', 'praia.avaliação');
+      }
+       
+      const result = await query;
+  
+      return res.json(result);
     } catch (error) {
       next(error);
     }
   },
+
+  async listaPraiasUnicoMunicipio(req, res, next) {
+    try {
+      const { municipios } = req.query;
+
+      const query = knex.table('praia');
+
+      if(query) {
+        query
+          .where({ municipios })
+          .join('municipios', 'municipios.nome_municipios', '=', 'praia.municipios')
+          .select('municipios.nome_municipios', 'praia.nome_praia', 'praia.foto', 'praia.avaliação');
+      }
+       
+      const result = await query;
+
+      return res.json(result);
+    } catch (error) {
+      next(error);
+    }
+  },
+
+  
 
   async cadastraPraias(req, res, next) {
     try {
@@ -30,7 +63,7 @@ module.exports = {
         lat,
         long,
         avaliação,
-        id_municipios,
+        municipios,
       } = req.body;
 
       const praias = {
@@ -39,7 +72,7 @@ module.exports = {
         lat,
         long,
         avaliação,
-        id_municipios,
+        municipios,
       };
 
       await knex('praia').insert(praias);
