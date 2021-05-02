@@ -10,7 +10,7 @@
     "runmigrate": "knex migrate:latest",
     "seed": "knex seed:make",
     "runseed": "knex seed:run",
-    "seedspecific": "knex seed:run --specific"
+    "ksrs": "knex seed:run --specific"
   },
   "author": "",
   "license": "ISC",
