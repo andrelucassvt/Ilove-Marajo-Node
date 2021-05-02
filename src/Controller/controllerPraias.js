@@ -21,7 +21,15 @@ module.exports = {
         query
           .where({ nome_praia })
           .join('municipios', 'municipios.nome_municipios', '=', 'praia.municipios')
-          .select('municipios.nome_municipios', 'praia.nome_praia', 'praia.foto', 'praia.avaliacao');
+          .select(
+            'municipios.nome_municipios', 
+            'praia.nome_praia',
+            'praia.descricao',
+            'praia.foto', 
+            'praia.avaliacao', 
+            'praia.lat', 
+            'praia.long'
+            );
       }
        
       const result = await query;
@@ -42,7 +50,15 @@ module.exports = {
         query
           .where({ municipios })
           .join('municipios', 'municipios.nome_municipios', '=', 'praia.municipios')
-          .select('municipios.nome_municipios', 'praia.nome_praia', 'praia.foto', 'praia.avaliacao');
+          .select(
+            'municipios.nome_municipios', 
+            'praia.nome_praia',
+            'praia.descricao',
+            'praia.foto', 
+            'praia.avaliacao', 
+            'praia.lat', 
+            'praia.long'
+          );
       }
        
       const result = await query;
@@ -59,6 +75,7 @@ module.exports = {
     try {
       const {
         nome_praia,
+        descricao,
         foto,
         lat,
         long,
@@ -68,6 +85,7 @@ module.exports = {
 
       const praias = {
         nome_praia,
+        descricao,
         foto,
         lat,
         long,
