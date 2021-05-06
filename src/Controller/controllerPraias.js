@@ -7,7 +7,8 @@ module.exports = {
         .table('praia')
         .where('avaliacao', '>=', '4.5')
         .orderBy('avaliacao', 'desc')
-        .select('*');
+        .select('*')
+        .limit(4);
 
       return res.json(list);
     } catch (error) {
